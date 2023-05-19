@@ -1,0 +1,24 @@
+const express = require("express");
+const router = express.Router();
+
+let users = {
+
+}
+
+router.post("/signUp", (req, res) => {
+    try{
+        const {email, name, password} = req.body;
+        
+        const userExist = users.hasOwnProperty(email);
+
+        if(userExist)
+        {
+            res.send("User Already Exists");
+        }
+        
+    } catch(e){
+
+    }
+})
+
+module.exports = router;
