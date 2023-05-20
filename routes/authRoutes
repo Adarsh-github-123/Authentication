@@ -40,4 +40,27 @@ router.post("/signUp", async (req, res) => {
     }
 })
 
+router.post("/signIn", async (req, res) => {
+    try {
+        const { email, password} = req.body;
+
+        const userExist = users.hasOwnProperty(email);
+
+        if(!userExist){
+            res.send("User does not exist");
+        }
+
+        const passCheck = await bcrypt.compare(password, user[email].password);
+
+        if(!passCheck){
+            res.send("Password mismatch");
+        }
+
+        res.send("Success");
+
+    } catch (e) {
+        res.send(e);
+    }
+})
+
 module.exports = router;
