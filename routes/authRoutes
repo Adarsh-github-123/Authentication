@@ -36,7 +36,7 @@ router.post("/signUp", async (req, res) => {
         res.send("Success");
         
     } catch(e){
-        res.send(e);
+        res.send("error");
     }
 })
 
@@ -59,7 +59,7 @@ router.post("/signIn", async (req, res) => {
         res.send("Success");
 
     } catch (e) {
-        res.send(e);
+        res.send("error");
     }
 })
 
