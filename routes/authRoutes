@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const createDB = require("../config/db");
-const User = require("../models/userModel")
+const User = require("../models/userModel");
 
 const {validateName, validateEmail, validatePassword } = require("../utils/validators");
 
@@ -19,7 +19,11 @@ router.post("/signUp", async (req, res) => {
     try{
         const {email, name, password} = req.body;
         
-        const userExist = users.hasOwnProperty(email);
+        const userExist = await User.findOne({
+            where: {
+                email
+            }
+        });
 
         if(userExist)
         {
@@ -40,11 +44,14 @@ router.post("/signUp", async (req, res) => {
 
         const Epassword = await bcrypt.hash(password, 10);
 
-        users[email] = { name, password: Epassword };
-        res.send("Success");
+        const saveToDB = {
+            name, email, password : Epassword
+        }
+        const createdUser = await User.create(saveToDB);
+        return res.status(201).send("Profile created successfully");
         
     } catch(e){
-        res.send("error");
+        return res.status(500).send("error");
     }
 })
 
