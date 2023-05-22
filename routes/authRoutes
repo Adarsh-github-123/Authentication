@@ -1,6 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
-const createDB = require("../config/db")
+const createDB = require("../config/db");
+const User = require("../models/userModel")
 
 const {validateName, validateEmail, validatePassword } = require("../utils/validators");
 
