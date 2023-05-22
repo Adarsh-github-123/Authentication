@@ -1,6 +1,13 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
+const createDB = require("../config/db")
+
 const {validateName, validateEmail, validatePassword } = require("../utils/validators");
+
+createDB.sync().then( () => {
+    console.log("DB is running");
+});
+
 const router = express.Router();
 
 let users = {
